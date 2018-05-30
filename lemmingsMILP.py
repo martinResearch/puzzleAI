@@ -1,6 +1,6 @@
 from pysparselp.SparseLP import SparseLP
 import numpy as np
-from lpsolvers import solveLPWithCBC,solveLPWithCLP,solveLPWithGLPK
+from pysparselp.lpsolvers import solveLPWithCBC,solveLPWithCLP,solveLPWithGLPK
 from lemmingsLP import *
 from pysparselp.constraintPropagation import greedy_round
 from lemmings import *
@@ -174,9 +174,9 @@ def solveGame(game) :
     
     # trying other solvers
     LP.convertToOnesideInequalitySystem()
-    print 'exporting problem to MPS file format...',
+    print ('exporting problem to MPS file format...')
     LP.saveMPS('lemmings.mps')
-    print 'done'
+    print ('done')
     
 
     solution=solveLPWithCBC('lemmings.mps',LP.nb_variables)
@@ -234,9 +234,9 @@ if __name__ == "__main__":
     
     # trying various solvers
     LP.convertToOnesideInequalitySystem()
-    print 'exporting problem to MPS file format...',
+    print ('exporting problem to MPS file format...')
     LP.saveMPS('lemmings.mps')
-    print 'done'
+    print ('done')
     
     
     timestart=time.time()

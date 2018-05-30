@@ -117,14 +117,21 @@ def readGameFile(filename):
             for j,c in enumerate(line):
                 if c=='X':
                     obstaclesMap[i,j]=1
-                if c=='>':
+                elif c=='R':
                     lemmingsPositionsInit    =np.array([[i,j]])
                     lemmingsDirectionsInit= np.array([1])
-                if c=='<' :  
+                elif c=='L' :  
                     lemmingsPositionsInit    =np.array([[i,j]])
                     lemmingsDirectionsInit= np.array([-1])
-                if c=='T':
+                elif c=='T':
                     targetsMap[i,j]=1
+                elif c=='.':
+                    pass
+                else:
+                    print('unkown element %s',c)
+                    raise
+            
+            
                 
         game=lemmingsGame(obstaclesMap, targetsMap,lemmingsPositionsInit, 
                           lemmingsDirectionsInit, nbFrames,nbMaxBlocks)

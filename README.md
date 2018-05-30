@@ -5,6 +5,8 @@ The goal is to get the lemming to reach a the target point after N time steps in
 It looks like an interesting problem as the AI needs to plan things. Random strategies are very unlikely to provide a solution.
 We also want to be able for the AI to learn the rules governing the lemmings behaviour/physics from few examples.
 
+An example of the game with slightly different ending rules (unlimited time steps and the game stop as soon as the lemming reach the target) has been coded in puzzlescript and can be played 
+[here](https://www.puzzlescript.net/play.html?p=9d91eaaf7431b00454a6a939369279fd) 
 ## Dependencies
 
 * numpy
@@ -173,7 +175,7 @@ I find 6 solutions using the constraint that the number of added bricks should l
  
 findind all 6 solutions takes about 10 seconds and making sure there are no other solutions takes about 10 more seconds.
  
-## learning the game's rules
+## learning the game's rules from examples
 
 
 We first generate random maps and simulate the lemming for each of these maps
@@ -362,21 +364,73 @@ maybe use approach like
 
 * Learning Generalized Reactive Policies Edward Groshev using Deep Neural Networks https://arxiv.org/pdf/1708.07280.pdf
 * Imagination-Augmented Agents for Deep Reinforcement Learning https://arxiv.org/pdf/1707.06203.pdf
+
+## Modeling with a game description language 
+
+some links:
+
+* http://www.cig2017.com/competitions-cig-2017/#anchor1
+* https://en.wikipedia.org/wiki/General_game_playing
+* http://www.ai.univ-paris8.fr/~jm/ggp/
+
+### Standford Game Description Language 
+
+One of the most popular [Game Description Language](https://en.wikipedia.org/wiki/Game_Description_Language) is the GDL component of the Stanford General Game Playing Competition.
+The language is a special-purpose language based on first-order logic which is capable of modelling a large diversity of turn-taking board games with perfect information or games that share
+similar qualities. However the language is ill-suited for defining video game with random components, missing information or complex dynamics. 
  
+
+###PyVGDL
+
+Other descriptive language such as the Video Game Description Language [31] have been proposed to be overcome the Standford Game Description Language limitations in order to be able to desribe most 2D arcade games.
+It is said in [32]that
+*"VGDL is inspired by GDL (Love et al. 2008), which is used for the GGP competitions. However, while GDL describes games based on logical rules (or true facts), VGDL defines the entities and interactions that can take place in the game. The dynamics of each one of these components, such as movements and behaviour, are programmed in the framework. Albeit this requires that a given functionality is implemented in the system when creating new games, it provides more flexibility and a larger space of games that can be designed. While GDL is restricted to board games, VGDL enables the definition of a wide range of arcade and puzzle games."*
+We modeled our game using the [PyVGDL](https://github.com/schaul/py-vgdl) library [31] .
+The game description in the VGDL format is [here](lemmings.vgdl). The library pyVGL provides functionalties that can be used to learn the behavior of a bot that solves the game.
+
+### Puzzlescript
+
+Getting inspiration from [Bouncers](https://www.puzzlescript.net/play.html?p=9675709), we coded our game in puzzlescript with a slightly different ending rule (unlimited time steps, the game stop as soon as the lemming reach the target). The game can be played [here](https://www.puzzlescript.net/play.html?p=cff599a56debf30a601b2f5436ae90fa) with source code [here](https://www.puzzlescript.net/editor.html?hack=cff599a56debf30a601b2f5436ae90fa)
+A general AI for games expressed in the puzzlescript language has been proposed in [39]. Some code is available online:
+
+* https://github.com/icelabMIT/PuzzleScriptAI
+* https://github.com/Moofkin/PuzzleScript-Solver
+
+An imprived version seemed to have been develop by authors in [44] 
+but it does not seem that the code is available online.
+
+### Zillions of Games
+
+[Zillions of Games](https://en.wikipedia.org/wiki/Zillions_of_Games) is a commercial software that come with tha game descritopion language and solvers
+We could write ou game in the zillions of gamers format and solve it using the packaged solvers.  
+However we would like the AI to be able to play without having access to the description in such a language but to be able to learn the game's rules through interation with the game or passive observation of games.
+
+
+## Exposing the game through a standardized API
+
+We could follow the API used in  [32] used for the [GVGAI competition](http:\\www.gvgai.net) to allow the agent to query the game status (winner, time step, score), the player's state (position,
+orientation, resources), history of events or collisions during
+the game, and position of the different sprites in the level,identified only by an integer id for its type.
+Additionally, one of the main resources the agents have to reason about the environment is the forward model provided by the framework.
+
+
 ## Other games
  
-some games where we could apply the same approach to learn the rules from examples and then solve new instances with the learned rules
+Some 2D games where we could apply the same approach to learn the rules from examples and then solve new instances with the learned rules
 
 
-games with gravity
+Some games with gravity:
 
-* Fire N' Ice: https://www.youtube.com/watch?v=1t782B0zK3Y
-* iso ball 2D https://play.google.com/store/apps/details?id=net.asort.isoball2d&hl=en
-* http://www.gamesgames.com/game/isoball-3 , similar to our gamme in 3D with a ball that can break if falls from too high
-* gravnix https://www.youtube.com/watch?v=k3iZqXxbnWc
+* Fire N' Ice (aka Solomon's Key 2): [gameplay video](https://www.youtube.com/watch?v=1t782B0zK3Y)
+* [iso ball 2D](https://play.google.com/store/apps/details?id=net.asort.isoball2d&hl=en) 
+* [gravnix](https://www.youtube.com/watch?v=k3iZqXxbnWc)
+* same. python implementation available [here](https://github.com/opethe1st/SameGame)
 
 Sokoban and variants
 
+* sokoban clone in python https://inventwithpython.com/pygame/chapter9.html,http://www.pygame.org/project-Sokoban-1587-.html
+* laser tank https://en.wikipedia.org/wiki/LaserTank
+* kye. There is python clone available here http://games.moria.org.uk/kye/
 * some sokoban variants: http://sokoban-jd.blogspot.fr/2013/04/sokoban-variants.html
 * polar slide (a sokoban variant with slidings blocks): we could learn rules from random generated moves of the player  http://game-game.com/28523/
 * Solomon's Key https://www.youtube.com/watch?v=ADB15SFW6hQ
@@ -385,12 +439,46 @@ Sokoban and variants
 * Oxyd https://en.wikipedia.org/wiki/Oxyd
 * Xor. Clone here http://jwm-art.net/?p=XorCurses
 
-others
+pPuzzlescript games that seem interesting:
+
+* [Atomix](https://www.puzzlescript.net/play.html?p=e4301869b762605f976b8f1c86fc70d3)
+
+    ![animation](https://recher.files.wordpress.com/2016/11/atomix_water.gif?w=549&h=314&zoom=2)
+
+* [marble shoot](https://www.puzzlescript.net/play.html?p=d688de5e0e1e978f63fd)
+
+	![animation](http://www.thepixelshelf.com/uploads/2/5/8/6/25863451/7960216_orig.gif)
+* [atlas shrank](https://www.puzzlescript.net/play.html?p=6994394)
+
+    ![animation](https://78.media.tumblr.com/6535f477c93b757b74fcd33b36388571/tumblr_mupxi8Yy4h1skdgaao1_500.gif)
+
+* [Bouncers](https://www.puzzlescript.net/play.html?p=9675709)	
+
+    ![animation](https://78.media.tumblr.com/339f3a0f7d2d44b7a2eda6a64f1b3b58/tumblr_mucg86BRud1skdgaao1_400.gif)
+* Boulderdash clones 
+	* https://www.puzzlescript.net/play.html?p=a67f26e3fa335dd8804d
+	* https://www.puzzlescript.net/play.html?p=8124733
+
+* [cratopia](https://www.puzzlescript.net/play.html?p=7114130)
+
+	![animation](http://abrobecker.free.fr/puzzlescript/tumblr_mv674b3Nj81skdgaao1_500.gif)
+
+* [rush hour](https://www.puzzlescript.net/play.html?p=58d491ad92403872ee21)
+
+
+other games that could be of interest to test our method
 
 * peg solitaire: we learn rules from examples of valid moves
-
+* rushhour. several python implementation (https://github.com/ryanwilsonperkin/rushhour,https://github.com/besuikerd/RushHour). gameplay https://www.youtube.com/watch?v=6sDl_MiivqU&t=7s
+* boulder dash. Pytohn clone here https://github.com/irmen/bouldercaves,https://www.pygame.org/project/2894
+* minidungeons http://minidungeons.com/
 could have a look at https://en.wikipedia.org/wiki/List_of_puzzle_video_games
 
+## the Arcade Learning Environment
+
+the Arcade Learning Environment (ALE) is developed by Bellamare et. al. (Bellemare
+et al. 2013) and used by e.g. Google DeepMind (Mnih et al. 2015). ALE includes games from the Atari 2600 emulator,
+which are simple 2D arcade games with rudimentarygraphics. ALE controllers are given as input the raw screencapture and a score counter, and they must be able to indicate the set of buttons that determines the next action to make in the game.
 
 ## Some references
 
@@ -399,7 +487,7 @@ could have a look at https://en.wikipedia.org/wiki/List_of_puzzle_video_games
 [download](http://www.cs.nott.ac.uk/~pszgxk/papers/cec2004kts.pdf)
 * [3] *The Lemmings Puzzle: Computational Complexity of an Approach and Identification of Difficult Instances*. Kristian Spoerer. PhD Thesis. University of Nottingham 2007
 [download](http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.109.7654&rep=rep1&type=pdf)
-* [4] *Micro and macro lemmings simulations based on ants colonies*. 	Antonio González-Pardo, Fernando Palero, David Camacho. EvoApplications 2014
+* [4] *Micro and macro lemmings simulations based on ants colonies*. 	Antonio Gonzalez-Pardo, Fernando Palero, David Camacho. EvoApplications 2014
 * [5] *Lemmings is PSPACE-complete*. Giovanni Viglietta. Theoretical Computer Science. 2012. [download](https://arxiv.org/pdf/1202.6581.pdf)
 * [6] *Towards Robust CNF Encodings of Cardinality Constraints*. Joao Marques-Silva and Ines Lynce[download](http://www.inesc-id.pt/ficheiros/publicacoes/4125.pdf)
 * [7] *Game Engine Learning from Video*. Matthew Guzdial, Boyang Li, Mark O. Riedl [download](https://www.cc.gatech.edu/~riedl/pubs/ijcai17.pdf)
@@ -409,7 +497,7 @@ could have a look at https://en.wikipedia.org/wiki/List_of_puzzle_video_games
 * [11] *Learning DNF by Decision Trees*. Giulia Pagallo.  [download](http://citeseerx.ist.psu.edu/viewdoc/download;jsessionid=65FF15062DDE3449803BBC66EBA87877?doi=10.1.1.104.573&rep=rep1&type=pdf) by Giulia Pagallo 
 * [12] *A  Scheme  for  Feature  Construction  and  a  Comparison  of Empirical  Methods*. Der-Shung Yang, Larry Rendell, Gunnar Blix.  [download](https://www.ijcai.org/Proceedings/91-2/Papers/014.pdf)
 * [13] *Generating production rules from decision trees*.     J.R.  Quinlan In IJCAI 1987.  
-* [14] *Graph Neural Networks and Boolean Satisfiability*. Benedikt Bünz, Matthew Lamm. 2017.  [download](https://arxiv.org/pdf/1702.03592.pdf)
+* [14] *Graph Neural Networks and Boolean Satisfiability*. Benedikt Bunz, Matthew Lamm. 2017.  [download](https://arxiv.org/pdf/1702.03592.pdf)
 * [15] *Learning pseudo-Boolean k-DNF and Submodular Functions*. Sofya Raskhodnikova, Grigory Yaroslavtsev. [ download](https://arxiv.org/pdf/1208.2294.pdf)
 * [16] *An O(n log(log(n))) Learning Algorithm For DNF under the Uniform Distribution*. Yishay Mansour.  [Download](http://www.cs.columbia.edu/~rocco/Teaching/S12/Readings/Mansour.pdf)
 * [17] *Learning DNF from Random Walks*. Nader Bshouty.  [download](https://www.cs.cmu.edu/~odonnell/papers/random-walks.pdf)
@@ -423,5 +511,20 @@ could have a look at https://en.wikipedia.org/wiki/List_of_puzzle_video_games
 * [25] *Hinge-Loss Markov Random Fields and Probabilistic Soft Logic*. Stephen H. Bach, Matthias Broecheler, Bert Huang, Lise Getoor. [paper](https://arxiv.org/pdf/1505.04406.pdf),[code](http://psl.linqs.org/)
 * [26] *Input-Convex Neural Network* [paper](https://arxiv.org/abs/1609.07152). Brandon Amos, Lei Xu, J. Zico Kolter [code](https://github.com/locuslab/icnn)
 * [27] *Learning Generalized Reactive Policies Edward Groshev using Deep Neural Networks*. Edward Groshev, Aviv Tamar. [paper](https://arxiv.org/pdf/1708.07280.pdf)
-* [28] *Imagination-Augmented Agents for Deep Reinforcement Learning*. Théophane Weber Sébastien Racanière David P. Reichert Lars Buesing Arthur Guez Danilo Rezende Adria Puigdomènech Badia Oriol Vinyals Nicolas Heess Yujia Li Razvan Pascanu Peter Battaglia David Silver Daan Wierstra [paper](https://arxiv.org/pdf/1707.06203.pdf)
- 
+* [28] *Imagination-Augmented Agents for Deep Reinforcement Learning*. Theophane Weber Sebastien Racaniere David P. Reichert Lars Buesing Arthur Guez Danilo Rezende Adria Puigdomenech Badia Oriol Vinyals Nicolas Heess Yujia Li Razvan Pascanu Peter Battaglia David Silver Daan Wierstra [paper](https://arxiv.org/pdf/1707.06203.pdf)
+* [29] *General Game Playing with Stochastic CSP* Frederic Koriche � Sylvain Lagrue Eric Piette Sebastien Tabaryhttp://www.cril.univ-artois.fr/~epiette/papers/constraints15.pdf
+* [30] *Stochastic Constraint Programming for General Game Playing with Imperfect Information* Frederic Koriche, Sylvain Lagrue, Éric Piette, and Sebastien Tabary http://www.cril.univ-artois.fr/~epiette/papers/giga16.pdf
+* [31] *A Video Game Description Language for Model-based or Interactive Learning*. Tom Schaul. Proceedings of the IEEE Conference on Computational Intelligence in Games 2013. [paper] (http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.435.61&rep=rep1&type=pdf)
+* [32] *General Video Game AI: Competition, Challenges, and Opportunities* https://www.aaai.org/ocs/index.php/AAAI/AAAI16/paper/download/11853/12281
+* [33] *General Video Game Level Generation* Ahmed Khalifa, Diego Perez-Liebana. [paper](http://game.engineering.nyu.edu/wp-content/uploads/2016/05/general-video-game.pdf)
+* [34] *Marahel: A Language for Constructive Level Generation* Ahmed Khalifa and Julian Togelius(http://www.akhalifa.com/documents/marahel-language-constructive.pdf)
+* [35] *The 2014 General Video Game Playing Competition* Diego Perez, Spyridon Samothrakis, Julian Togelius, Tom Schaul, Simon M. Lucas, Adrien Couetoux, Jerry Lee, Chong-U Lim, Tommy Thompson *http://repository.essex.ac.uk/14619/1/GVGAI2014Competition.pdf
+* [36] https://github.com/mgbellemare/Arcade-Learning-Environment
+* [37] *General Video Game Playing* John Levine, Clare Bates Congdon, Marc Ebner, Graham Kendall, Simon M. Lucas, Risto Miikkulainen, Tom Schaul, and Tommy Thompson. [paper](http://people.idsia.ch/~tom/publications/dagstuhl-gvgp.pdf)
+* [38] *Towards a Video Game Description Language* Marc Ebner1, John Levine2, Simon M. Lucas3, Tom Schaul, Tommy Thompson , and Julian Togelius [paper](http://julian.togelius.com/Ebner2013Towards.pdf)
+* [39] *An Approach to General Videogame Evaluation and Automatic Generation using a Description Language* Chong-U Lim and D. Fox Harrell [paper](http://groups.csail.mit.edu/icelab/sites/default/files/pdf/Lim2014approach.pdf)
+* [40] *Automatic Puzzle Level Generation: A General Approach using a Description Language*. Ahmed Khalifa and Magda Fayek. http://www.ccgworkshop.org/2015/Khalifa.pdf
+* [41] *The 2014 General Video Game Playing Competition* Diego Perez, Spyridon Samothrakis, Julian Togelius, Tom Schaul, Simon M. Lucas, Adrien Couetoux, Jerry Lee, Chong-U Lim, Tommy Thompson http://diego-perez.net/papers/GVGAI2014Competition.pdf
+* [42] *Bandit-based Search for Constraint Programming Manuel Loth*, Mich`ele Sebag, Youssef Hamadi, Marc Schoenauer
+* [43] *Monte-Carlo Tree Search for the Maximum Satisfiability Problem*
+* [44] *Evaluating a Solver-Aided Puzzle Design Tool* Joseph C. Osborn Michael Mateas. [pdf](http://ceur-ws.org/Vol-1907/3_mici_osborn.pdf )

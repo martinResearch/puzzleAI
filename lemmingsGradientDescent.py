@@ -55,7 +55,7 @@ def funcToOptimize(x,targetsMap,lemmingsMapsInit,nbFrames,obstaclesMaps,alpha):
     lemmingsSimulationStateSpace_B(lemmingsMaps,obstaclesMap,targetsMap,lemmingsMaps_B,obstaclesMap_B)
     obstaclesMap_B=obstaclesMap_B*obstaclesMapMask
         
-    print score
+    print (score)
     return   -score   ,-obstaclesMap_B.flatten()    
 
 
