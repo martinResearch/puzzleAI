@@ -42,8 +42,7 @@ Solution found by adding bricks using Coin-Or CBC Mixed Integer Linear Program (
 
 simple implementation:
 
-```
-#!python
+```python
 def lemmingsSimulation(obstaclesMap,targetsMap,lemmingsPositionsInit,lemmingsDirectionsInit,nbFrames):
   # this function simulate lemmings, in order to keep the code as simple as possible we handle the boundary using the modulo operator.
   # therefore obsacle must be added on the boundary to avoid the lemmings reintering the map from the opposite side
@@ -78,8 +77,7 @@ Instead of representing the state of the lemmings at each frame with three integ
 full of zeros but one value with a one. 
 Using this representation we can rewrite the simulation as follow:
 
-```
-#!python
+```python
 
 def lemmingsSimulationStateSpace(lemmingsMaps,obstaclesMap,targetsMap,nbFrames):
   for i in range(1,nbFrames):
@@ -122,8 +120,7 @@ score=np.sum(np.sum(lemmingsMaps[-1],axis=2)*targetsMap)
 with respect to obstaclesMap lemmingsMaps and auxiliaryVariables
 under constraints isValid(obstaclesMap, lemmingsMaps, auxVars) is true
 
-```
-#!python 
+```python
 
 def isValid(obstaclesMap, lemmingsMaps, auxVars):
 	v=True
@@ -269,16 +266,6 @@ Instead of learning the rules from random games, we may want the learning system
 
 we can learn a DNF using a decisionlist (from artificial intelligence a modern approach)
 https://github.com/aimacode/aima-python/blob/master/learning.py
-
-we could try to learn a disjonctive normal form by gradient descent:
-c_i= prod_j((1-x_j)^aij *x_j^bij)
-y=1-prod(1-c_i)
-aij>0
-bij>0
-aij+bij<1
-minimize w.r.t aij and bij
-we start near 0
-penalize a bit aij and bij to get sparse clauses ?
 
 maybe we could learn rules using inductive logic programming?(see *artificial inelligence a modern approach*)
 
