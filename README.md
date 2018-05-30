@@ -7,6 +7,10 @@ We also want to be able for the AI to learn the rules governing the lemmings beh
 
 An example of the game with slightly different ending rules (unlimited time steps and the game stop as soon as the lemming reach the target) has been coded in puzzlescript and can be played 
 [here](https://www.puzzlescript.net/play.html?p=9d91eaaf7431b00454a6a939369279fd) 
+
+Screenshot:
+
+![image](./images/puzzlescriptCapture.png)
 ## Dependencies
 
 * numpy
@@ -20,7 +24,7 @@ An example of the game with slightly different ending rules (unlimited time step
 * Coin-or CBC and CLP executables. download binaries [clp.exe](https://www.coin-or.org/download/binary/Clp/) and [cbc](https://www.coin-or.org/download/binary/Cbc/) and copy them in the solvers\windows subfolder
 
 
-## game rule
+## Game's rules
 
 We have a 2D map of obstacles in a 2D vertical world with a starting point for the lemming, a starting orientation of the lemming (left or right), a target point. The original obstacles cannot be removed
 and the player is only allowed to add obstacles.
@@ -172,7 +176,7 @@ I find 6 solutions using the constraint that the number of added bricks should l
  
 findind all 6 solutions takes about 10 seconds and making sure there are no other solutions takes about 10 more seconds.
  
-## learning the game's rules from examples
+## Learning the game's rules from examples
 
 
 We first generate random maps and simulate the lemming for each of these maps
@@ -270,7 +274,7 @@ https://github.com/aimacode/aima-python/blob/master/learning.py
 maybe we could learn rules using inductive logic programming?(see *artificial inelligence a modern approach*)
 
 
-## solving problem with learnt rules
+## Solving the problem with learnt rules
 ### Using google's constraint solver with learnt rules
 Using a tree classifier we encode the tree decision rules as logic expression for each patch and use these to define a Conjunctive Normal Forms (CNF) on the entire set of patches and solve the problem using google's constraint satisfaction solver.
 
@@ -415,41 +419,25 @@ Some games with gravity:
 
 Sokoban and variants
 
-* sokoban clone in python https://inventwithpython.com/pygame/chapter9.html,http://www.pygame.org/project-Sokoban-1587-.html
-* laser tank https://en.wikipedia.org/wiki/LaserTank
-* kye. There is python clone available here http://games.moria.org.uk/kye/
-* some sokoban variants: http://sokoban-jd.blogspot.fr/2013/04/sokoban-variants.html
-* polar slide (a sokoban variant with slidings blocks): we could learn rules from random generated moves of the player  http://game-game.com/28523/
-* Solomon's Key https://www.youtube.com/watch?v=ADB15SFW6hQ
-* unger http://puzzlesea.com/unger
-* Atomix. https://en.wikipedia.org/wiki/Atomix_(video_game). Open source clone here http://atomiks.sourceforge.net/
-* Oxyd https://en.wikipedia.org/wiki/Oxyd
-* Xor. Clone here http://jwm-art.net/?p=XorCurses
+* sokoban clone in python described [here](https://inventwithpython.com/pygame/chapter9.html) or [here](http://www.pygame.org/project-Sokoban-1587-.html)
+* [laser tank](https://en.wikipedia.org/wiki/LaserTank)
+* kye. There is python clone available [here](http://games.moria.org.uk/kye/)
+* some sokoban variants listed [here](http://sokoban-jd.blogspot.fr/2013/04/sokoban-variants.html)
+* [polar slide](http://game-game.com/28523/) (a sokoban variant with slidings blocks). We could learn rules from random generated moves of the player  
+* Solomon's Key. gameplay video [here](https://www.youtube.com/watch?v=ADB15SFW6hQ)
+* [unger](http://puzzlesea.com/unger)
+* [Atomix](https://en.wikipedia.org/wiki/Atomix_(video_game)). Open source clone [here](http://atomiks.sourceforge.net/)
+* [Oxyd](https://en.wikipedia.org/wiki/Oxyd)
+* Xor. Clone [here](http://jwm-art.net/?p=XorCurses)
 
-pPuzzlescript games that seem interesting:
+Some Puzzlescript games that seem interesting to test our method:
 
 * [Atomix](https://www.puzzlescript.net/play.html?p=e4301869b762605f976b8f1c86fc70d3)
-
-    ![animation](https://recher.files.wordpress.com/2016/11/atomix_water.gif?w=549&h=314&zoom=2)
-
 * [marble shoot](https://www.puzzlescript.net/play.html?p=d688de5e0e1e978f63fd)
-
-	![animation](http://www.thepixelshelf.com/uploads/2/5/8/6/25863451/7960216_orig.gif)
 * [atlas shrank](https://www.puzzlescript.net/play.html?p=6994394)
-
-    ![animation](https://78.media.tumblr.com/6535f477c93b757b74fcd33b36388571/tumblr_mupxi8Yy4h1skdgaao1_500.gif)
-
 * [Bouncers](https://www.puzzlescript.net/play.html?p=9675709)	
-
-    ![animation](https://78.media.tumblr.com/339f3a0f7d2d44b7a2eda6a64f1b3b58/tumblr_mucg86BRud1skdgaao1_400.gif)
-* Boulderdash clones 
-	* https://www.puzzlescript.net/play.html?p=a67f26e3fa335dd8804d
-	* https://www.puzzlescript.net/play.html?p=8124733
-
+* [Boulderdash](https://www.puzzlescript.net/play.html?p=a67f26e3fa335dd8804d)
 * [cratopia](https://www.puzzlescript.net/play.html?p=7114130)
-
-	![animation](http://abrobecker.free.fr/puzzlescript/tumblr_mv674b3Nj81skdgaao1_500.gif)
-
 * [rush hour](https://www.puzzlescript.net/play.html?p=58d491ad92403872ee21)
 
 
@@ -461,7 +449,7 @@ other games that could be of interest to test our method
 * minidungeons http://minidungeons.com/
 could have a look at https://en.wikipedia.org/wiki/List_of_puzzle_video_games
 
-## the Arcade Learning Environment
+## The Arcade Learning Environment
 
 the Arcade Learning Environment (ALE) is developed by Bellamare et. al. (Bellemare
 et al. 2013) and used by e.g. Google DeepMind (Mnih et al. 2015). ALE includes games from the Atari 2600 emulator,
@@ -499,8 +487,8 @@ which are simple 2D arcade games with rudimentarygraphics. ALE controllers are g
 * [26] *Input-Convex Neural Network* [paper](https://arxiv.org/abs/1609.07152). Brandon Amos, Lei Xu, J. Zico Kolter [code](https://github.com/locuslab/icnn)
 * [27] *Learning Generalized Reactive Policies Edward Groshev using Deep Neural Networks*. Edward Groshev, Aviv Tamar. [paper](https://arxiv.org/pdf/1708.07280.pdf)
 * [28] *Imagination-Augmented Agents for Deep Reinforcement Learning*. Theophane Weber Sebastien Racaniere David P. Reichert Lars Buesing Arthur Guez Danilo Rezende Adria Puigdomenech Badia Oriol Vinyals Nicolas Heess Yujia Li Razvan Pascanu Peter Battaglia David Silver Daan Wierstra [paper](https://arxiv.org/pdf/1707.06203.pdf)
-* [29] *General Game Playing with Stochastic CSP* Frederic Koriche � Sylvain Lagrue Eric Piette Sebastien Tabaryhttp://www.cril.univ-artois.fr/~epiette/papers/constraints15.pdf
-* [30] *Stochastic Constraint Programming for General Game Playing with Imperfect Information* Frederic Koriche, Sylvain Lagrue, Éric Piette, and Sebastien Tabary http://www.cril.univ-artois.fr/~epiette/papers/giga16.pdf
+* [29] *General Game Playing with Stochastic CSP* Frederic Koriche · Sylvain Lagrue Eric Piette Sebastien Tabaryhttp://www.cril.univ-artois.fr/~epiette/papers/constraints15.pdf
+* [30] *Stochastic Constraint Programming for General Game Playing with Imperfect Information* Frederic Koriche, Sylvain Lagrue, Ã‰ric Piette, and Sebastien Tabary http://www.cril.univ-artois.fr/~epiette/papers/giga16.pdf
 * [31] *A Video Game Description Language for Model-based or Interactive Learning*. Tom Schaul. Proceedings of the IEEE Conference on Computational Intelligence in Games 2013. [paper] (http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.435.61&rep=rep1&type=pdf)
 * [32] *General Video Game AI: Competition, Challenges, and Opportunities* https://www.aaai.org/ocs/index.php/AAAI/AAAI16/paper/download/11853/12281
 * [33] *General Video Game Level Generation* Ahmed Khalifa, Diego Perez-Liebana. [paper](http://game.engineering.nyu.edu/wp-content/uploads/2016/05/general-video-game.pdf)
