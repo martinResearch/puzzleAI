@@ -197,13 +197,12 @@ simulation without rounding:
 
 ![animation](./images/learnedSimulationLogisticRegressionWithoutRounding.gif)
 
-Without rounding the predicted probabilities the lemmings loses a bit o contrast. We use normalisation to keep the sum to one, the lemmings spreads on some other areas
-this is visible if we multiply by 30 the lemmings density to get better contrasted images
+Without rounding the predicted probabilities the lemmings density looses a bit o contrast. We use normalisation to keep the sum to one, the lemmings density spreads on some other areas. This is visible if we multiply by 30 the lemmings density to get better contrasted images
 
 ![animation](./images/learnedSimulationLogisticRegressionWithoutRoundingHigherContrast.gif)
 
 
-We tried a Two layers neural network and a decision tree classifier. We get the best result with the decision tree classifier. Even by multiplying the lemmings density by 30 to augment the contrast we don't observe any wrong location of the lemmings.
+We tried a two layers neural network and a decision tree classifier. We get the best result with the decision tree classifier. Even by multiplying the lemmings density by 30 to augment the contrast we don't observe any wrong location of the lemmings.
 
 ![animation](./images/learnedSimulationDecisionTreeWithoutRoundingHigherContrast.gif)
 
@@ -262,16 +261,15 @@ Instead of training a decision tree we could use a table for each possible confi
 * penalise each configuration depending on how frequent they are in the training dataset
 
 this is similar to naive estimation of potentials in a Markov field.
-however we do not want to learn that some obstacle configuration are no permitted regardless of the lemmings position just because they where not existing on the training set.
-we do not want to learn the distribution of the obstacle but the distribution of the lemming conditioned to the obstacles.
+However we do not want to learn that some obstacle configuration are no permitted regardless of the lemmings position just because they where not existing on the training set.
+We do not want to learn the distribution of the obstacle but the distribution of the lemming conditioned to the obstacles.
 
 Instead of learning the rules from random games, we may want the learning system to be *active* and generate query games on which the simulation of the lemmings is run. We aim then at learning the right set of rules with a minimum number of query games.
 
 
-we can learn a DNF using a decisionlist (from artificial intelligence a modern approach)
-https://github.com/aimacode/aima-python/blob/master/learning.py
-
-maybe we could learn rules using inductive logic programming?(see *artificial inelligence a modern approach*)
+we can learn a DNF using a decisionlist (from artificial intelligence a modern approach). Maybe we could reuse code from 
+https://github.com/aimacode/aima-python/blob/master/learning.py.
+Maybe we could learn rules using inductive logic programming?(see the *artificial inelligence a modern approach* book)
 
 
 ## Solving the problem with learnt rules
@@ -319,7 +317,7 @@ The solver find the 6 solutions. We note that finding all 6 solutions using the 
 
 Maybe we could remove to variables in some of the clauses which could make the problem easier for SAT solvers to solve (maybe see Quinlan 1987).
 We may actually want to get more rules than the strict minimum and have some redundancy and larger contexts in order to make it easier for tree search based SAT solver to prune nodes.
-Is is a bit similar to clause learning in SAT solvers? we do not want too many clauses but we want clauses that cane prune bad solution quickly.
+Is this approach a bit similar to clause learning in SAT solvers? We do not want too many clauses but we want clauses that can help to prune bad solution quickly.
 
 ### Using Integer programming with learnt rules
 
