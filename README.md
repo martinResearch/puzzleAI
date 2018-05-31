@@ -115,10 +115,9 @@ Finally we simulate the lemmings with the found non binary map
 
 ## Second method: using a 0-1 integer programming formulation
 
-we can first interpret the problem as solving a non linear program through the introduction of a set of auxiliary variables that represent the number or density of lemmings coming from the top , the right ,the left and staying on the same cell.
-we want to maximise  
-```
-#!python
+We can first interpret the problem as solving a non linear program through the introduction of a set of auxiliary variables that represent the number or density of lemmings coming from the top , the right ,the left and staying on the same cell.
+We want to maximise  
+```python
 score=np.sum(np.sum(lemmingsMaps[-1],axis=2)*targetsMap)
 ```
 with respect to obstaclesMap lemmingsMaps and auxiliaryVariables
@@ -150,7 +149,7 @@ We export the integer linear program into the MPS file format and solve the rela
 
 ![animation](./images/solutionCLP.gif) 
 
-Using a brick with density 2/3, the lemming splits into a lemmings with density 1/3 that can walk of bricks with density 1/3 given our set of lienar constraints.
+Using a brick with density 2/3, the lemming splits into a lemmings with density 1/3 that can walk of bricks with density 1/3 given our set of linear constraints.
 Solving the problem with CBC takes about 3 seconds.
 
 We solve the integer linear program (i.e. enforcing the variables to be integers) using Coin-Or [CBC](https://www.coin-or.org/download/binary/cbc) executable. We get
@@ -206,7 +205,7 @@ We tried a two layers neural network and a decision tree classifier. We get the 
 
 ![animation](./images/learnedSimulationDecisionTreeWithoutRoundingHigherContrast.gif)
 
-with enough training data the decision seems to learn the right set of rules
+With enough training data the decision tree seems to learn the right set of rules
 The rules to predict lemmings[iFrame,i,j,0] i.e the lemmings values at location i,j pointing toward the left is 
 
 	The binary tree structure to predict lemmings[iFrame,i,j,0] has 17 nodes and has the following tree structure:
@@ -269,7 +268,7 @@ Instead of learning the rules from random games, we may want the learning system
 
 we can learn a DNF using a decisionlist (from artificial intelligence a modern approach). Maybe we could reuse code from 
 https://github.com/aimacode/aima-python/blob/master/learning.py.
-Maybe we could learn rules using inductive logic programming?(see the *artificial inelligence a modern approach* book)
+Maybe we could learn rules using inductive logic programming?(see the *artificial intelligence a modern approach* book)
 
 
 ## Solving the problem with learnt rules
@@ -301,7 +300,7 @@ We obtain
     (lemmings[iFrame-1,i,j,0] or not(lemmings[iFrame-1,i-1,j,1] or obstacle[iFrame-1,i,j] or lemmings[iFrame,i,j,1]) and
     (not(lemmings[iFrame-1,i,j,0] or not(obstacle[iFrame-1,i,j-1] or not(obstacle[iFrame-1,i+1,j] or lemmings[iFrame,i,j,1])
 
-we add the extra rules that the number of lemmings on the target should sum to one on the last frame and the constraint that we use a limited number of bricks. This last constraint is a cardinality constraint that might be tricky to convert to Conjunctive Normal Forms [6,7] if we want to use a SAT solver that need the problem to be formulated a a conjunctive normal form like minisat (not that some code based on minisat like [minsatp](https://github.com/niklasso/minisatp) or [minicard](https://github.com/liffiton/minicard) handles cardinality constraints).
+We add the extra rules that the number of lemmings on the target should sum to one on the last frame and the constraint that we use a limited number of bricks. This last constraint is a cardinality constraint that might be tricky to convert to Conjunctive Normal Forms [6,7] if we want to use a SAT solver that need the problem to be formulated a a conjunctive normal form like minisat (not that some code based on minisat like [minsatp](https://github.com/niklasso/minisatp) or [minicard](https://github.com/liffiton/minicard) handles cardinality constraints).
  
 Fortunately cardinality constraints are handled by google's constraint programming tool.
 The solver find the 6 solutions. We note that finding all 6 solutions using the learnt rules is about 10 times slower than with the hand coded rules ( 110 seconds vs 10 seconds) and making sure all solution have been found much longer (205 seconds vs 22 seconds).
@@ -321,12 +320,12 @@ Is this approach a bit similar to clause learning in SAT solvers? We do not want
 
 ### Using Integer programming with learnt rules
 
-we can convert each clauses in the CNF formula to a linear inequality and solve the problem using an integer programming solver like coin-or CBC or a pseudo Boolean optimisation solver like [minicard](https://github.com/liffiton/minicard).
+We can convert each clauses in the CNF formula to a linear inequality and solve the problem using an integer programming solver like coin-or CBC or a pseudo Boolean optimisation solver like [minicard](https://github.com/liffiton/minicard).
 
 ## Generating difficult solvable games
 
-we can generate random game and then try to find the solution with a minimum number of bricks. We can try to solve with one brick, then two etc
-or use a integer programming solver with a penalization on the number of added bricks.
+We can generate random game and then try to find the solution with a minimum number of bricks. We can try to solve with one brick, then two etc
+or use a integer programming solver with a penalisation on the number of added bricks.
 in order to be able to generate quickly feasible games we want to be able to discard quickly unfeasible games.
 
 
@@ -346,7 +345,7 @@ I could have a better look at some structured-learning methods like
 We generate a set of solved problem examples obtained either by generating random game and solving them with one of the method above or using a method that generate solution and then removed bricks to generate a problem.
 From this set of examples we can learn some heuristic function that predict for example a lower bound on the the number of bricks that are needed to solve the problem.
 We then add one brick at a time and perform an A* search using this heuristic.
-Note that at each time we add a brick there is no point trying to add a brick that is not on the lemmings trajectory, can this be learnt by the machine ?
+Note that at each time we add a brick, there is no point trying to add a brick that is not on the lemmings trajectory, can this be learnt by the machine ?
  
 
 maybe use approach like
@@ -369,7 +368,7 @@ The language is a special-purpose language based on first-order logic which is c
 similar qualities. However the language is ill-suited for defining video game with random components, missing information or complex dynamics. 
  
 
-###PyVGDL
+### PyVGDL
 
 Other descriptive language such as the Video Game Description Language [31] have been proposed to be overcome the Standford Game Description Language limitations in order to be able to desribe most 2D arcade games.
 It is said in [32]that
@@ -385,14 +384,14 @@ A general AI for games expressed in the puzzlescript language has been proposed 
 * https://github.com/icelabMIT/PuzzleScriptAI
 * https://github.com/Moofkin/PuzzleScript-Solver
 
-An imprived version seemed to have been develop by authors in [44] 
+An improved version seemed to have been develop by authors in [44] 
 but it does not seem that the code is available online.
 
 ### Zillions of Games
 
-[Zillions of Games](https://en.wikipedia.org/wiki/Zillions_of_Games) is a commercial software that come with tha game descritopion language and solvers
+[Zillions of Games](https://en.wikipedia.org/wiki/Zillions_of_Games) is a commercial software that comes with a game description language and solvers
 We could write ou game in the zillions of gamers format and solve it using the packaged solvers.  
-However we would like the AI to be able to play without having access to the description in such a language but to be able to learn the game's rules through interation with the game or passive observation of games.
+However we would like the AI to be able to play without having access to the description in such a language but to be able to learn the game's rules through interaction with the game or passive observation of games.
 
 
 ## Exposing the game through a standardized API
@@ -449,9 +448,7 @@ could have a look at https://en.wikipedia.org/wiki/List_of_puzzle_video_games
 
 ## The Arcade Learning Environment
 
-the Arcade Learning Environment (ALE) is developed by Bellamare et. al. (Bellemare
-et al. 2013) and used by e.g. Google DeepMind (Mnih et al. 2015). ALE includes games from the Atari 2600 emulator,
-which are simple 2D arcade games with rudimentarygraphics. ALE controllers are given as input the raw screencapture and a score counter, and they must be able to indicate the set of buttons that determines the next action to make in the game.
+The Arcade Learning Environment (ALE) is developed by Bellamare et. al [45]and used by e.g. Google DeepMind. ALE includes games from the Atari 2600 emulator, which are simple 2D arcade games with rudimentary graphics. ALE controllers are given as input the raw screen capture and a score counter, and they must be able to indicate the set of buttons that determines the next action to make in the game.
 
 ## Some references
 
@@ -501,3 +498,4 @@ which are simple 2D arcade games with rudimentarygraphics. ALE controllers are g
 * [42] *Bandit-based Search for Constraint Programming Manuel Loth*, Mich`ele Sebag, Youssef Hamadi, Marc Schoenauer
 * [43] *Monte-Carlo Tree Search for the Maximum Satisfiability Problem*
 * [44] *Evaluating a Solver-Aided Puzzle Design Tool* Joseph C. Osborn Michael Mateas. [pdf](http://ceur-ws.org/Vol-1907/3_mici_osborn.pdf )
+* [45] *The Arcade Learning Environment: An Evaluation Platform for General Agents*  Bellemare,Naddaf,Veness,Bowling. Journal of Artificial Intelligence Research 2013
