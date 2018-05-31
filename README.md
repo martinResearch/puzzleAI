@@ -1,7 +1,7 @@
 ## Goal
 
 The goal of this project is to devise an artificial intelligence that solves a small puzzle game that bares some similarities with the game lemmings, but that is much simpler.
-The goal is to get the lemming to reach a the target point after N time steps in a 2D vertical map by adding bricks in the map.
+The goal is to get the lemming to reach a target point after N time steps in a 2D vertical map by adding bricks in the map.
 It looks like an interesting problem as the AI needs to plan things. Random strategies are very unlikely to provide a solution.
 We also want to be able for the AI to learn the rules governing the lemmings behaviour/physics from few examples.
 
@@ -42,9 +42,9 @@ Solution found by adding bricks using Coin-Or CBC Mixed Integer Linear Program (
 
 ![animation](./images/solutionCBC.gif)
 
-## simulation 
+## Simulation 
 
-simple implementation:
+A simple python implementation of the lemmings displacement rules:
 
 ```python
 def lemmingsSimulation(obstaclesMap,targetsMap,lemmingsPositionsInit,lemmingsDirectionsInit,nbFrames):
@@ -94,28 +94,27 @@ def lemmingsSimulationStateSpace(lemmingsMaps,obstaclesMap,targetsMap,nbFrames):
 ```
 
 We did not use logical or and and but addition and multiplication on purpose, this allows us to relax the binary constraint and to be able to simulate with continuous obstacle values on the interval between 0 and 1 that can be interpreted as a kind of density.
-We can maximise the score by updating gradually the continuous valued obstacles map using gradient ascent. For the the gradient computation to be efficient we use an hand coded reverse accumulation of the gradient(a.k.a adjoint or back-propagation in the neural network context)
-The corresponding code is in [lemmingsGradientDescent.py](./lemmingsGradientDescent.py)
-The simulation with non zero (0.3) initial values
+We can maximise the score by updating gradually the continuous valued obstacles map using gradient ascent. For the the gradient computation to be efficient, we do not use finite differences but a hand coded reverse accumulation of the gradient (a.k.a adjoint or back-propagation in the neural network context).
+The corresponding code is in [lemmingsGradientDescent.py](./lemmingsGradientDescent.py).
+The simulation with non zero (0.3) initial values gives:
  
  
 ![animation](./images/relaxedSimulation.gif)
 
-We are maximising a non linear function and thus may fall in a local minimum.
-We need a careful initialisation with non zero obstacles values in order to get a fraction of the lemmings to reach the target in the initialisation and get on non-zero initial gradient for the method to start changing the obstacles map.
-The obstacle evolution through gradient descent
+The score we are maximising is a not convex and thus may fall in a local minimum. We thus need a careful initialisation with non zero obstacles values in order to get a fraction of the lemmings to reach the target in the initialisation and get on non-zero initial gradient for the method to start changing the obstacles map through gradient descent.
+The obstacle evolution through gradient descent gives:
   
 ![animation](./images/obstaclesOptimization.gif)
 
 We added a small penalty on the obstacle map to encourage using as little new bricks as possible.
-However note that not all the cells are binary at convergence, maybe we need more iterations, break some symmetry by using a slightly different penalty for each cell.
+However note that not all the cells are binary at convergence. Maybe we need more iterations, break some symmetry by using a slightly different penalty for each cell.
 Finally we simulate the lemmings with the found non binary map
 
 ![animation](./images/solutionSimulation1.gif)
 
 ## Second method: using a 0-1 integer programming formulation
 
-We can first interpret the problem as solving a non linear program through the introduction of a set of auxiliary variables that represent the number or density of lemmings coming from the top , the right ,the left and staying on the same cell.
+We can first interpret the problem as solving a non linear program through the introduction of a set of auxiliary variables that represent for each cell the number or density of lemmings coming from the top , the right ,the left and staying on the same cell.
 We want to maximise  
 ```python
 score=np.sum(np.sum(lemmingsMaps[-1],axis=2)*targetsMap)
@@ -140,9 +139,9 @@ def isValid(obstaclesMap, lemmingsMaps, auxVars):
 
 Instead of using non linear constraints that involve product between variables, we relax the problem by replacing them by a set of linear inequalities.
 We replace a=b*c with binary values by (a<=b)&(a<=c)&(a>=b+c-1).
-this allows us to reformulate the problem as a 0-1 integer linear program.
+This allows us to reformulate the problem as a 0-1 integer linear program.
 There are several modelling tools that are available to model linear programs from python ([Pulp](https://pythonhosted.org/PuLP),[CyPL](https://github.com/coin-or/CyLP),[Pyomo](http://www.pyomo.org/),[Cvxpy](http://www.cvxpy.org/en/latest/)[Cvxpy](http://www.cvxpy.org/en/latest/))
-But none of these allows to handle array of variables with numpy arrays operations like slicing or the roll function that we are using, and we would have to write loops over array elements.
+but none of these allows to handle array of variables with numpy arrays operations like slicing or the roll function that we are using in our python code for the simulation, and we would have to write loops over array elements.
 We use our own tool [PySparseLP](https://github.com/martinResearch/PySparseLP) which allows to define easily a set of constraints using several numpy arrays containing variable indices and coefficients.
 The python code to formulate the MILP is in [lemmingsMILP.py](./lemmingsMILP.py).
 We export the integer linear program into the MPS file format and solve the relaxed linear program (without the integer constraint) using the Coin-Or [CLP](https://www.coin-or.org/download/binary/Clp) executable. We get:
@@ -180,8 +179,8 @@ findind all 6 solutions takes about 10 seconds and making sure there are no othe
 
 We first generate random maps and simulate the lemming for each of these maps
 From this simulated data we learn to predict a cell value from neighbouring  cells in the previous frames
-we learn from fully observable state (direction given) as it is much more difficult to learn the rules having access only to the lemmings position and not heir orientation as we would then have to either 
-learn rules based on an hidden direction state or use a large context with several previous frames, but we would have to get a very large context to go far back in time to guess the 
+we learn from fully observable state (direction given) as it is much more difficult to learn the rules having access only to the lemmings position and not their orientation as we would then have to either 
+learn rules based on an hidden direction state or use a large temporal context with several previous frames, but we would have to get a very large context to go far back in time to guess the 
 left/right direction of a falling lemmings.
 We use a simple logistic regression but we augment the feature vectors by using product between pairs of variable in the local context.
 We then simulate the lemmings using the the trained model with rounding and without rounding the predicted class probability.
@@ -250,7 +249,7 @@ The rules to predict lemmings[iFrame,i,j,1] i.e. the lemmings values at location
 
 
 
-In order to measure how many simulated games need to be used to train the right set of rules we can generate a huge amount of simulated games and measure the percentage of games that violates the rules as we use more and more of theses games to train the rules.
+In order to measure how many simulated games need to be used in the training in order ot get the right set of rules, we can generate a huge amount of simulated games and measure the percentage of games that violates the rules as we use more and more of theses games to train the rules.
 We could also check that the set of learnt rules is equivalent to the set of hand coded rules using a brute force method by enumerating all possibilities.
 
 Instead of training a decision tree we could use a table for each possible configuration in a small neighbourhood and we can either
@@ -259,14 +258,15 @@ Instead of training a decision tree we could use a table for each possible confi
 * be optimistic and assume that any configuration not seen in the training set is allowed
 * penalise each configuration depending on how frequent they are in the training dataset
 
-this is similar to naive estimation of potentials in a Markov field.
+This is similar to naive estimation of potentials in a Markov field.
 However we do not want to learn that some obstacle configuration are no permitted regardless of the lemmings position just because they where not existing on the training set.
 We do not want to learn the distribution of the obstacle but the distribution of the lemming conditioned to the obstacles.
 
 Instead of learning the rules from random games, we may want the learning system to be *active* and generate query games on which the simulation of the lemmings is run. We aim then at learning the right set of rules with a minimum number of query games.
+The learning algorithm would then generates tailored levels from which it can disambiguate rules obtained from previous simulation.
 
 
-we can learn a DNF using a decisionlist (from artificial intelligence a modern approach). Maybe we could reuse code from 
+We can learn a DNF using a decisionlist (from artificial intelligence a modern approach). Maybe we could reuse code from 
 https://github.com/aimacode/aima-python/blob/master/learning.py.
 Maybe we could learn rules using inductive logic programming?(see the *artificial intelligence a modern approach* book)
 
