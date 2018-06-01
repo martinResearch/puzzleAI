@@ -499,3 +499,6 @@ The Arcade Learning Environment (ALE) is developed by Bellamare et. al [45]and u
 * [43] *Monte-Carlo Tree Search for the Maximum Satisfiability Problem*
 * [44] *Evaluating a Solver-Aided Puzzle Design Tool* Joseph C. Osborn Michael Mateas. [pdf](http://ceur-ws.org/Vol-1907/3_mici_osborn.pdf )
 * [45] *The Arcade Learning Environment: An Evaluation Platform for General Agents*  Bellemare, Naddaf, Veness,Bowling. Journal of Artificial Intelligence Research 2013
+* [46] *World Models* David Ha, Jurgen Schmidhuber. [download](https://arxiv.org/pdf/1803.10122.pdf)
+* [47] *Learning Environment Simulators from Sparse Signals* Yonadav Goldwasser Shavit [download](https://dspace.mit.edu/bitstream/handle/1721.1/113442/1020173476-MIT.pdf)
+
