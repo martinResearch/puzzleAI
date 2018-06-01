@@ -483,7 +483,7 @@ The Arcade Learning Environment (ALE) is developed by Bellamare et. al [45]and u
 * [27] *Learning Generalized Reactive Policies Edward Groshev using Deep Neural Networks*. Edward Groshev, Aviv Tamar. [paper](https://arxiv.org/pdf/1708.07280.pdf)
 * [28] *Imagination-Augmented Agents for Deep Reinforcement Learning*. Theophane Weber Sebastien Racaniere David P. Reichert Lars Buesing Arthur Guez Danilo Rezende Adria Puigdomenech Badia Oriol Vinyals Nicolas Heess Yujia Li Razvan Pascanu Peter Battaglia David Silver Daan Wierstra [paper](https://arxiv.org/pdf/1707.06203.pdf)
 * [29] *General Game Playing with Stochastic CSP* Frederic Koriche · Sylvain Lagrue Eric Piette Sebastien Tabaryhttp://www.cril.univ-artois.fr/~epiette/papers/constraints15.pdf
-* [30] *Stochastic Constraint Programming for General Game Playing with Imperfect Information* Frederic Koriche, Sylvain Lagrue, Ã‰ric Piette, and Sebastien Tabary http://www.cril.univ-artois.fr/~epiette/papers/giga16.pdf
+* [30] *Stochastic Constraint Programming for General Game Playing with Imperfect Information* Frederic Koriche, Sylvain Lagrue, Eric Piette, and Sebastien Tabary http://www.cril.univ-artois.fr/~epiette/papers/giga16.pdf
 * [31] *A Video Game Description Language for Model-based or Interactive Learning*. Tom Schaul. Proceedings of the IEEE Conference on Computational Intelligence in Games 2013. [paper] (http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.435.61&rep=rep1&type=pdf)
 * [32] *General Video Game AI: Competition, Challenges, and Opportunities* https://www.aaai.org/ocs/index.php/AAAI/AAAI16/paper/download/11853/12281
 * [33] *General Video Game Level Generation* Ahmed Khalifa, Diego Perez-Liebana. [paper](http://game.engineering.nyu.edu/wp-content/uploads/2016/05/general-video-game.pdf)
@@ -495,7 +495,7 @@ The Arcade Learning Environment (ALE) is developed by Bellamare et. al [45]and u
 * [39] *An Approach to General Videogame Evaluation and Automatic Generation using a Description Language* Chong-U Lim and D. Fox Harrell [paper](http://groups.csail.mit.edu/icelab/sites/default/files/pdf/Lim2014approach.pdf)
 * [40] *Automatic Puzzle Level Generation: A General Approach using a Description Language*. Ahmed Khalifa and Magda Fayek. http://www.ccgworkshop.org/2015/Khalifa.pdf
 * [41] *The 2014 General Video Game Playing Competition* Diego Perez, Spyridon Samothrakis, Julian Togelius, Tom Schaul, Simon M. Lucas, Adrien Couetoux, Jerry Lee, Chong-U Lim, Tommy Thompson http://diego-perez.net/papers/GVGAI2014Competition.pdf
-* [42] *Bandit-based Search for Constraint Programming Manuel Loth*, Mich`ele Sebag, Youssef Hamadi, Marc Schoenauer
+* [42] *Bandit-based Search for Constraint Programming Manuel Loth*, Michele Sebag, Youssef Hamadi, Marc Schoenauer
 * [43] *Monte-Carlo Tree Search for the Maximum Satisfiability Problem*
 * [44] *Evaluating a Solver-Aided Puzzle Design Tool* Joseph C. Osborn Michael Mateas. [pdf](http://ceur-ws.org/Vol-1907/3_mici_osborn.pdf )
-* [45] *The Arcade Learning Environment: An Evaluation Platform for General Agents*  Bellemare,Naddaf,Veness,Bowling. Journal of Artificial Intelligence Research 2013
+* [45] *The Arcade Learning Environment: An Evaluation Platform for General Agents*  Bellemare, Naddaf, Veness,Bowling. Journal of Artificial Intelligence Research 2013
