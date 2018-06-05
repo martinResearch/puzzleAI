@@ -460,7 +460,7 @@ The Arcade Learning Environment (ALE) is developed by Bellamare et. al [45]and u
 * [4] *Micro and macro lemmings simulations based on ants colonies*. 	Antonio Gonzalez-Pardo, Fernando Palero, David Camacho. EvoApplications 2014
 * [5] *Lemmings is PSPACE-complete*. Giovanni Viglietta. Theoretical Computer Science. 2012. [download](https://arxiv.org/pdf/1202.6581.pdf)
 * [6] *Towards Robust CNF Encodings of Cardinality Constraints*. Joao Marques-Silva and Ines Lynce[download](http://www.inesc-id.pt/ficheiros/publicacoes/4125.pdf)
-* [7] *Game Engine Learning from Video*. Matthew Guzdial, Boyang Li, Mark O. Riedl [download](https://www.cc.gatech.edu/~riedl/pubs/ijcai17.pdf)
+* [7] *Game Engine Learning from Video*. Matthew Guzdial, Boyang Li, Mark O. Riedl [download](https://www.cc.gatech.edu/~riedl/pubs/ijcai17.pdf)[code](https://github.com/mguzdial3/VideoGameEngineLearning)
 * [8] *Stochastic Variational Video Prediction*.  [download](https://arxiv.org/pdf/1710.11252.pdf)
 * [9] *New Approaches to Constraint Acquisition*.ICON book chapter. C. Bessiere, R. Coletta,A. Daoudi, E. Hebrard, G. Katsirelos, N. Lazaar, Y. Mechqrane, N. Narodytska, C.G. Quimper, and T. Walsh. http://www.lirmm.fr/ConstraintAcquisition/
 * [10] *Learning DNF Formulas*. Shie Mannor and Shai Shalev-Shwartz.  [download](https://www.cs.huji.ac.il/~shais/DNF.pdf)
