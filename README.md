@@ -195,7 +195,7 @@ simulation without rounding:
 
 ![animation](./images/learnedSimulationLogisticRegressionWithoutRounding.gif)
 
-Without rounding the predicted probabilities the lemmings density looses a bit o contrast. We use normalisation to keep the sum to one, the lemmings density spreads on some other areas. This is visible if we multiply by 30 the lemmings density to get better contrasted images
+Without rounding the predicted probabilities the lemmings density looses a bit of contrast. We use normalisation to keep the sum to one, the lemmings density spreads on some other areas. This is visible if we multiply by 30 the lemmings density to get better contrasted images. WARNING: using a better optimization algorithm to thrain the weights of the network (lbfgs) we get a much better result with ouput probabilities much closer to 0 or 1, i need to regenerate that image.
 
 ![animation](./images/learnedSimulationLogisticRegressionWithoutRoundingHigherContrast.gif)
 
