@@ -337,6 +337,8 @@ I could have a better look at some structured-learning methods like
 * Unifying Local Consistency and MAX SAT Relaxations for Scalable Inference with Rounding Guarantees. [paper](https://en.wikipedia.org/wiki/Markov_logic_network)
 * Hinge-Loss Markov Random Fields and Probabilistic Soft Logic. [paper](https://arxiv.org/pdf/1505.04406.pdf),[code](http://psl.linqs.org/)
 * Input-Convex Neural Network [paper](https://arxiv.org/abs/1609.07152), [code](https://github.com/locuslab/icnn)
+* SATNet: Bridging deep learning and logical reasoning using a differentiable
+satisfiability solver [paper](http://proceedings.mlr.press/v97/wang19e/wang19e.pdf). Could be used to learn the rules as well as how to solve the problem in end-to-end manner ?
 
 
 
