@@ -318,6 +318,7 @@ Maybe we could remove to variables in some of the clauses which could make the p
 We may actually want to get more rules than the strict minimum and have some redundancy and larger contexts in order to make it easier for tree search based SAT solver to prune nodes.
 Is this approach a bit similar to clause learning in SAT solvers? We do not want too many clauses but we want clauses that can help to prune bad solution quickly.
 
+
 ### Using Integer programming with learnt rules
 
 We can convert each clauses in the CNF formula to a linear inequality and solve the problem using an integer programming solver like coin-or CBC or a pseudo Boolean optimisation solver like [minicard](https://github.com/liffiton/minicard).
@@ -328,6 +329,9 @@ We can generate random game and then try to find the solution with a minimum num
 or use a integer programming solver with a penalisation on the number of added bricks.
 in order to be able to generate quickly feasible games we want to be able to discard quickly unfeasible games.
 
+## Method to learn game rules and dynamics 
+
+[48 ]Learning to Simulate Dynamic Environments With GameGAN [paper](https://arxiv.org/abs/2005.12126)
 
 ## Using other methods like convex input neural network or OptNet
 
@@ -503,4 +507,6 @@ The Arcade Learning Environment (ALE) is developed by Bellamare et. al [45]and u
 * [45] *The Arcade Learning Environment: An Evaluation Platform for General Agents*  Bellemare, Naddaf, Veness,Bowling. Journal of Artificial Intelligence Research 2013
 * [46] *World Models* David Ha, Jurgen Schmidhuber. [download](https://arxiv.org/pdf/1803.10122.pdf)
 * [47] *Learning Environment Simulators from Sparse Signals* Yonadav Goldwasser Shavit [download](https://dspace.mit.edu/bitstream/handle/1721.1/113442/1020173476-MIT.pdf) [code](https://github.com/yo-shavit/sparse-model-learning)
+* [48] *Learning to Simulate Dynamic Environments With GameGAN *[paper](https://arxiv.org/abs/2005.12126)
+
 
